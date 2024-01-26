@@ -1,24 +1,17 @@
 public class Main {
-  public static void main(String[] args)
+ public static void main(String[] args)
   {
-    System.out.println("******* A-1 *******");
-    WordList w = new WordList();
-    w.add("cat");
-    w.add("mouse");
-    w.add("frog");
-    w.add("dog");
-    w.add("dog");
-    System.out.println(w + " " +
-           w.numWordsOfLength(4) + " " +
-           w.numWordsOfLength(3) + " " +
-           w.numWordsOfLength(2));
-    System.out.println("******* A-2 *******");
-    w.removeWordsOfLength(4);
-    System.out.println(w);
-    w.removeWordsOfLength(3);
-    System.out.println(w);
-    w.removeWordsOfLength(2);
-    System.out.println(w);
-  }
+    LightBoard sim = new LightBoard(7, 5);
+    System.out.println(sim);
+    System.out.println();
 
+    String[] stars = {"**.**", "*..*.", "*..**", "*...*", "*...*", "**.**", "....."};
+    boolean[][] lights = sim.getLights();
+    for (int r = 0; r < stars.length; r++)
+      for (int c = 0; c < stars[0].length(); c++)
+        lights[r][c] = stars[r].charAt(c) == '*';
+    System.out.println(sim.evaluateLight(0, 3) + " " + sim.evaluateLight(6, 0) + " " +
+                       sim.evaluateLight(4, 1) + " " + sim.evaluateLight(5, 4));
+    System.out.println();
+  }
 }
