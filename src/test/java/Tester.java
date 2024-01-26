@@ -13,36 +13,35 @@ public class Tester {
 
    @Test
    public void partA () {
-      WordList test1 = new WordList();
-      test1.add("cat");
-      test1.add("mouse");
-      test1.add("frog");
-      test1.add("dog");
-      test1.add("dog");
-      int result = test1.numWordsOfLength(4);
-      assertEquals(1, result);
-      result = test1.numWordsOfLength(3);
-      assertEquals(3, result);
-      result = test1.numWordsOfLength(2);
-      assertEquals(0, result);
+      LightBoard test = new LightBoard(500,650);
+      int rows = test.getLights().length;
+      int cols = test.getLights()[0].length;
+      assertEquals(500,rows);
+      assertEquals(650,cols);
+      double count = 0;
+      for(int r = 0; r < rows;r++)
+        for(int c = 0; c < cols; c++)
+          if(test.getLights()[r][c])
+            count++;
+      assertEquals(0.4,count/(rows*cols),0.2);
    }
 
    @Test
    public void partB(){
-      WordList test2 = new WordList();
-      test2.add("cat");
-      test2.add("mouse");
-      test2.add("frog");
-      test2.add("dog");
-      test2.add("dog");
-      test2.removeWordsOfLength(4);
-      String result = "[cat, mouse, dog, dog]";
-      assertEquals(test2.toString(),result);
-      test2.removeWordsOfLength(3);
-      result = "[mouse]";
-      assertEquals(test2.toString(),result);
-      test2.removeWordsOfLength(2);
-      assertEquals(test2.toString(),result);
+      LightBoard test = new LightBoard(7,5);
+      String[] stars = {"**.**", "*..*.", "*..**", "*...*", "*...*", "**.**", "....."};
+      boolean[][] newLights = test.getLights();
+      for (int r = 0; r < stars.length; r++)
+         for (int c = 0; c < stars[0].length(); c++)
+           newLights[r][c] = stars[r].charAt(c) == '*';
+      assertEquals(partBFail(false,0,3), false,test.evaluateLight(0, 3));
+      assertEquals(partBFail(true,6,0),true,test.evaluateLight(6, 0));
+      assertEquals(partBFail(false,4,1),false,test.evaluateLight(4, 1));
+      assertEquals(partBFail(true,5,4),true,test.evaluateLight(5, 4));
+   }
+
+   private String partBFail(boolean expected, int num1, int num2){
+      return "Expected " + expected + " with evaluateLight(" + num1 + "," + num2 + "), but output was " + !expected;
    }
 
 
